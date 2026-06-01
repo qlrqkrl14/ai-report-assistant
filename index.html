@@ -27,6 +27,51 @@
         </p>
       </div>
 
+      <!-- AI 실행 단계: 상단 배치 -->
+      <div class="bg-blue-50 border border-blue-100 rounded-2xl p-5 space-y-3 mb-8">
+        <p class="font-bold text-blue-800">
+          AI 실행 단계
+        </p>
+
+        <p class="text-sm text-blue-900 leading-relaxed">
+          아래 버튼을 누르면 AI 변환 프롬프트가 화면에 표시되지 않고 자동으로 복사됩니다.
+          복사된 프롬프트를 ChatGPT 또는 Gemini에 붙여넣고 실행하세요.
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-3">
+          <button
+            id="copyPromptOnlyBtn"
+            type="button"
+            class="bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition"
+          >
+            프롬프트 복사
+          </button>
+
+          <button
+            id="openChatGptBtn"
+            type="button"
+            class="bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-black transition"
+          >
+            복사 후 ChatGPT 열기
+          </button>
+
+          <button
+            id="openGeminiBtn"
+            type="button"
+            class="bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition"
+          >
+            복사 후 Gemini 열기
+          </button>
+        </div>
+
+        <p
+          id="copyStatusMessage"
+          class="text-sm text-slate-600"
+        >
+          아직 프롬프트가 복사되지 않았습니다.
+        </p>
+      </div>
+
       <div class="grid lg:grid-cols-2 gap-6">
 
         <!-- 입력 영역 -->
@@ -112,117 +157,69 @@
               + 참고 보고서 추가
             </button>
           </div>
-
-          <div class="bg-blue-50 border border-blue-100 rounded-2xl p-5 space-y-3">
-            <p class="font-bold text-blue-800">
-              AI 실행 단계
-            </p>
-
-            <p class="text-sm text-blue-900 leading-relaxed">
-              아래 버튼을 누르면 AI 변환 프롬프트가 화면에 표시되지 않고 자동으로 복사됩니다.
-              복사된 프롬프트를 ChatGPT 또는 Gemini에 붙여넣고 실행하세요.
-            </p>
-
-            <div class="grid md:grid-cols-3 gap-3">
-              <button
-                id="copyPromptOnlyBtn"
-                type="button"
-                class="bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition"
-              >
-                프롬프트 복사
-              </button>
-
-              <button
-                id="openChatGptBtn"
-                type="button"
-                class="bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-black transition"
-              >
-                복사 후 ChatGPT 열기
-              </button>
-
-              <button
-                id="openGeminiBtn"
-                type="button"
-                class="bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition"
-              >
-                복사 후 Gemini 열기
-              </button>
-            </div>
-
-            <p
-              id="copyStatusMessage"
-              class="text-sm text-slate-600"
-            >
-              아직 프롬프트가 복사되지 않았습니다.
-            </p>
-          </div>
         </div>
 
-<!-- 보고서 초안 수정 및 최종 보고서 출력 영역 -->
-<div class="space-y-5">
+        <!-- 보고서 초안 수정 및 최종 보고서 출력 영역 -->
+        <div class="space-y-5">
 
-  <div class="bg-slate-50 border rounded-2xl p-5">
-    <p class="font-bold mb-2">사용 방법</p>
+          <div class="bg-slate-50 border rounded-2xl p-5">
+            <p class="font-bold mb-2">사용 방법</p>
 
-    <ol class="list-decimal list-inside text-sm text-slate-600 leading-relaxed space-y-1">
-      <li>왼쪽에 보고서 재료를 입력합니다.</li>
-      <li>[복사 후 ChatGPT 열기] 또는 [복사 후 Gemini 열기]를 누릅니다.</li>
-      <li>열린 AI 채팅창에 붙여넣기 후 실행합니다.</li>
-      <li>AI가 생성한 보고서 초안을 아래 칸에 붙여넣습니다.</li>
-      <li>수치, 표현, 문장, 오탈자 등을 사람이 직접 수정합니다.</li>
-      <li>[수정 완료 후 최종 보고서 출력하기]를 누르면 아래에 최종 보고서가 표시됩니다.</li>
-      <li>[최종 보고서 복사]를 누르면 최종본 전체가 복사됩니다.</li>
-    </ol>
-  </div>
+            <ol class="list-decimal list-inside text-sm text-slate-600 leading-relaxed space-y-1">
+              <li>왼쪽에 보고서 재료를 입력합니다.</li>
+              <li>상단의 [복사 후 ChatGPT 열기] 또는 [복사 후 Gemini 열기]를 누릅니다.</li>
+              <li>열린 AI 채팅창에 붙여넣기 후 실행합니다.</li>
+              <li>AI가 생성한 보고서 초안을 아래 칸에 붙여넣습니다.</li>
+              <li>수치, 표현, 문장, 오탈자 등을 사람이 직접 수정합니다.</li>
+              <li>[수정 완료 후 최종 보고서 출력하기]를 누르면 아래에 최종 보고서가 표시됩니다.</li>
+              <li>[최종 보고서 복사]를 누르면 최종본 전체가 복사됩니다.</li>
+            </ol>
+          </div>
 
-  <div>
-    <div class="flex items-center justify-between mb-2">
-  <label class="block font-semibold">보고서 초안 붙여넣기 및 수기 수정</label>
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <label class="block font-semibold">보고서 초안 붙여넣기 및 수기 수정</label>
 
-  <div class="text-xs text-slate-500">
-    <span id="draftCountWithSpace">띄어쓰기 포함 0자</span>
-    <span class="mx-1">/</span>
-    <span id="draftCountWithoutSpace">띄어쓰기 제외 0자</span>
-  </div>
-</div>
+              <div class="text-xs text-slate-500">
+                <span id="draftCountWithSpace">띄어쓰기 포함 0자</span>
+                <span class="mx-1">/</span>
+                <span id="draftCountWithoutSpace">띄어쓰기 제외 0자</span>
+              </div>
+            </div>
 
-    <textarea
-      id="finalReportInput"
-      class="w-full h-56 border rounded-xl p-4 text-sm leading-relaxed"
-      placeholder="ChatGPT 또는 Gemini에서 생성된 보고서 초안을 여기에 붙여넣은 뒤, 수치·표현·문장 등을 직접 수정하세요."
-    ></textarea>
+            <textarea
+              id="finalReportInput"
+              class="w-full h-56 border rounded-xl p-4 text-sm leading-relaxed"
+              placeholder="ChatGPT 또는 Gemini에서 생성된 보고서 초안을 여기에 붙여넣은 뒤, 수치·표현·문장 등을 직접 수정하세요."
+            ></textarea>
 
-    <div class="grid md:grid-cols-2 gap-3 mt-3">
-      <button
-        id="showFinalReportBtn"
-        type="button"
-        class="w-full bg-slate-800 text-white font-bold py-3 rounded-xl hover:bg-slate-900 transition"
-      >
-        수정 완료 후 최종 보고서 출력하기
-      </button>
+            <div class="grid md:grid-cols-2 gap-3 mt-3">
+              <button
+                id="showFinalReportBtn"
+                type="button"
+                class="w-full bg-slate-800 text-white font-bold py-3 rounded-xl hover:bg-slate-900 transition"
+              >
+                수정 완료 후 최종 보고서 출력하기
+              </button>
 
-      <button
-        id="copyFinalReportBtn"
-        type="button"
-        class="w-full bg-white border font-bold py-3 rounded-xl hover:bg-slate-50 transition"
-      >
-        최종 보고서 복사
-      </button>
-    </div>
-  </div>
+              <button
+                id="copyFinalReportBtn"
+                type="button"
+                class="w-full bg-white border font-bold py-3 rounded-xl hover:bg-slate-50 transition"
+              >
+                최종 보고서 복사
+              </button>
+            </div>
+          </div>
 
-  <div>
-    <label class="block font-semibold mb-2">최종 보고서 출력</label>
+          <div>
+            <label class="block font-semibold mb-2">최종 보고서 출력</label>
 
-    <div
-      id="finalReportBox"
-      class="min-h-[500px] bg-white border rounded-xl p-5 whitespace-pre-line text-sm leading-relaxed overflow-y-auto"
-    >
-      수기 수정이 완료된 최종 보고서가 여기에 표시됩니다.
-    </div>
-  </div>
-
-</div>
+            <div
+              id="finalReportBox"
+              class="min-h-[500px] bg-white border rounded-xl p-5 whitespace-pre-line text-sm leading-relaxed overflow-y-auto"
+            >
+              수기 수정이 완료된 최종 보고서가 여기에 표시됩니다.
             </div>
           </div>
 
@@ -673,46 +670,46 @@ ${sampleReportBlock}
       }
     }
 
-function updateDraftCharacterCount() {
-  const text = finalReportInput.value;
+    function updateDraftCharacterCount() {
+      const text = finalReportInput.value;
 
-  const countWithSpace = text.length;
-  const countWithoutSpace = text.replace(/\s/g, "").length;
+      const countWithSpace = text.length;
+      const countWithoutSpace = text.replace(/\s/g, "").length;
 
-  draftCountWithSpace.textContent = `띄어쓰기 포함 ${countWithSpace.toLocaleString()}자`;
-  draftCountWithoutSpace.textContent = `띄어쓰기 제외 ${countWithoutSpace.toLocaleString()}자`;
-}
-    
-function showFinalReport() {
-  const finalReport = finalReportInput.value.trim();
+      draftCountWithSpace.textContent = `띄어쓰기 포함 ${countWithSpace.toLocaleString()}자`;
+      draftCountWithoutSpace.textContent = `띄어쓰기 제외 ${countWithoutSpace.toLocaleString()}자`;
+    }
 
-  if (!finalReport) {
-    alert("ChatGPT 또는 Gemini에서 생성된 보고서 초안을 붙여넣은 뒤, 필요한 부분을 수정해주세요.");
-    return;
-  }
+    function showFinalReport() {
+      const finalReport = finalReportInput.value.trim();
 
-  finalReportBox.textContent = finalReport;
-}
+      if (!finalReport) {
+        alert("ChatGPT 또는 Gemini에서 생성된 보고서 초안을 붙여넣은 뒤, 필요한 부분을 수정해주세요.");
+        return;
+      }
 
-async function copyFinalReport() {
-  const finalReport = finalReportBox.textContent.trim();
+      finalReportBox.textContent = finalReport;
+    }
 
-  if (
-    !finalReport ||
-    finalReport === "수기 수정이 완료된 최종 보고서가 여기에 표시됩니다."
-  ) {
-    alert("먼저 수정 완료 후 최종 보고서를 출력해주세요.");
-    return;
-  }
+    async function copyFinalReport() {
+      const finalReport = finalReportBox.textContent.trim();
 
-  const copied = await copyTextToClipboard(finalReport);
+      if (
+        !finalReport ||
+        finalReport === "수기 수정이 완료된 최종 보고서가 여기에 표시됩니다."
+      ) {
+        alert("먼저 수정 완료 후 최종 보고서를 출력해주세요.");
+        return;
+      }
 
-  if (copied) {
-    alert("최종 보고서가 복사되었습니다.");
-  } else {
-    alert("복사에 실패했습니다. 최종 보고서 내용을 직접 복사해주세요.");
-  }
-}
+      const copied = await copyTextToClipboard(finalReport);
+
+      if (copied) {
+        alert("최종 보고서가 복사되었습니다.");
+      } else {
+        alert("복사에 실패했습니다. 최종 보고서 내용을 직접 복사해주세요.");
+      }
+    }
 
     addSourceLinkBtn.addEventListener("click", addSourceLinkInput);
     addSampleReportBtn.addEventListener("click", addSampleReportInput);
@@ -742,14 +739,13 @@ async function copyFinalReport() {
     });
 
     finalReportInput.addEventListener("input", updateDraftCharacterCount);
-    
+
     showFinalReportBtn.addEventListener("click", showFinalReport);
     copyFinalReportBtn.addEventListener("click", copyFinalReport);
 
     addSourceLinkInput();
     addSampleReportInput();
     updateDraftCharacterCount();
- 
   </script>
 </body>
 </html>
