@@ -673,6 +673,16 @@ ${sampleReportBlock}
       }
     }
 
+function updateDraftCharacterCount() {
+  const text = finalReportInput.value;
+
+  const countWithSpace = text.length;
+  const countWithoutSpace = text.replace(/\s/g, "").length;
+
+  draftCountWithSpace.textContent = `띄어쓰기 포함 ${countWithSpace.toLocaleString()}자`;
+  draftCountWithoutSpace.textContent = `띄어쓰기 제외 ${countWithoutSpace.toLocaleString()}자`;
+}
+    
 function showFinalReport() {
   const finalReport = finalReportInput.value.trim();
 
