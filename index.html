@@ -741,6 +741,8 @@ async function copyFinalReport() {
       generateAndCopyPrompt(GEMINI_URL);
     });
 
+    finalReportInput.addEventListener("input", updateDraftCharacterCount);
+    
     showFinalReportBtn.addEventListener("click", showFinalReport);
     copyFinalReportBtn.addEventListener("click", copyFinalReport);
 
