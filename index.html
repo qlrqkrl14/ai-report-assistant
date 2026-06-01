@@ -22,8 +22,8 @@
 
         <p class="text-slate-600 leading-relaxed">
           과거 우수 보고서의 형식, 문체, 논리 구조를 AI가 분석하고,
-          사용자가 입력한 지역·자료·이슈·수치·사례를 그 형식에 맞게 재구성하여
-          새로운 보고서 초안과 최적화된 AI 작성 프롬프트를 생성합니다.
+          사용자가 입력한 지역·자료·이슈·수치·사례를 그 형식에 맞게 재구성할 수 있도록
+          최적화된 AI 변환 프롬프트를 생성합니다.
         </p>
       </div>
 
@@ -113,35 +113,105 @@
             </button>
           </div>
 
-          <button
-            id="generateBtn"
-            class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition"
-          >
-            보고서 작성
-          </button>
+          <div class="bg-blue-50 border border-blue-100 rounded-2xl p-5 space-y-3">
+            <p class="font-bold text-blue-800">
+              AI 실행 단계
+            </p>
+
+            <p class="text-sm text-blue-900 leading-relaxed">
+              아래 버튼을 누르면 AI 변환 프롬프트가 화면에 표시되지 않고 자동으로 복사됩니다.
+              복사된 프롬프트를 ChatGPT 또는 Gemini에 붙여넣고 실행하세요.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-3">
+              <button
+                id="copyPromptOnlyBtn"
+                type="button"
+                class="bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition"
+              >
+                프롬프트 복사
+              </button>
+
+              <button
+                id="openChatGptBtn"
+                type="button"
+                class="bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-black transition"
+              >
+                복사 후 ChatGPT 열기
+              </button>
+
+              <button
+                id="openGeminiBtn"
+                type="button"
+                class="bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition"
+              >
+                복사 후 Gemini 열기
+              </button>
+            </div>
+
+            <p
+              id="copyStatusMessage"
+              class="text-sm text-slate-600"
+            >
+              아직 프롬프트가 복사되지 않았습니다.
+            </p>
+          </div>
         </div>
 
-        <!-- 출력 영역 -->
-        <div class="space-y-3">
-          <div class="flex items-center justify-between">
-            <label class="block font-semibold">AI 보고서 초안</label>
+        <!-- 최종 보고서 출력 영역 -->
+        <div class="space-y-5">
 
-            <button
-              id="copyPromptBtn"
-              type="button"
-              class="text-sm font-semibold text-slate-600 hover:text-blue-700 disabled:text-slate-300 disabled:cursor-not-allowed"
-              disabled
+          <div class="bg-slate-50 border rounded-2xl p-5">
+            <p class="font-bold mb-2">사용 방법</p>
+
+            <ol class="list-decimal list-inside text-sm text-slate-600 leading-relaxed space-y-1">
+              <li>왼쪽에 보고서 재료를 입력합니다.</li>
+              <li>[복사 후 ChatGPT 열기] 또는 [복사 후 Gemini 열기]를 누릅니다.</li>
+              <li>열린 AI 채팅창에 붙여넣기 후 실행합니다.</li>
+              <li>AI가 생성한 최종 보고서를 아래 칸에 붙여넣습니다.</li>
+              <li>[최종 보고서 출력하기]를 누르면 화면에 정리되어 표시됩니다.</li>
+            </ol>
+          </div>
+
+          <div>
+            <label class="block font-semibold mb-2">최종 보고서 붙여넣기</label>
+
+            <textarea
+              id="finalReportInput"
+              class="w-full h-56 border rounded-xl p-4 text-sm leading-relaxed"
+              placeholder="ChatGPT 또는 Gemini에서 생성된 최종 보고서를 여기에 붙여넣으세요."
+            ></textarea>
+
+            <div class="grid md:grid-cols-2 gap-3 mt-3">
+              <button
+                id="showFinalReportBtn"
+                type="button"
+                class="w-full bg-slate-800 text-white font-bold py-3 rounded-xl hover:bg-slate-900 transition"
+              >
+                최종 보고서 출력하기
+              </button>
+
+              <button
+                id="copyFinalReportBtn"
+                type="button"
+                class="w-full bg-white border font-bold py-3 rounded-xl hover:bg-slate-50 transition"
+              >
+                최종 보고서 복사
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-semibold mb-2">최종 보고서 출력</label>
+
+            <div
+              id="finalReportBox"
+              class="min-h-[500px] bg-white border rounded-xl p-5 whitespace-pre-line text-sm leading-relaxed overflow-y-auto"
             >
-              AI 변환 프롬프트 복사
-            </button>
+              최종 보고서가 여기에 표시됩니다.
+            </div>
           </div>
 
-          <div
-            id="resultBox"
-            class="min-h-[780px] bg-slate-50 border rounded-xl p-5 whitespace-pre-line text-sm leading-relaxed overflow-y-auto"
-          >
-            왼쪽 내용을 입력한 뒤 [보고서 작성] 버튼을 누르면 결과가 표시됩니다.
-          </div>
         </div>
 
       </div>
@@ -152,13 +222,25 @@
     const MAX_SOURCE_LINKS = 5;
     const MAX_SAMPLE_REPORTS = 3;
 
+    const CHATGPT_URL = "https://chatgpt.com/";
+    const GEMINI_URL = "https://gemini.google.com/app";
+
     const sourceLinksContainer = document.getElementById("sourceLinksContainer");
     const sampleReportsContainer = document.getElementById("sampleReportsContainer");
+
     const addSourceLinkBtn = document.getElementById("addSourceLinkBtn");
     const addSampleReportBtn = document.getElementById("addSampleReportBtn");
-    const generateBtn = document.getElementById("generateBtn");
-    const copyPromptBtn = document.getElementById("copyPromptBtn");
-    const resultBox = document.getElementById("resultBox");
+
+    const copyPromptOnlyBtn = document.getElementById("copyPromptOnlyBtn");
+    const openChatGptBtn = document.getElementById("openChatGptBtn");
+    const openGeminiBtn = document.getElementById("openGeminiBtn");
+
+    const copyStatusMessage = document.getElementById("copyStatusMessage");
+
+    const finalReportInput = document.getElementById("finalReportInput");
+    const finalReportBox = document.getElementById("finalReportBox");
+    const showFinalReportBtn = document.getElementById("showFinalReportBtn");
+    const copyFinalReportBtn = document.getElementById("copyFinalReportBtn");
 
     let latestPrompt = "";
 
@@ -311,30 +393,9 @@
         .join("\n");
     }
 
-    function shortenText(text, maxLength) {
-      if (text.length <= maxLength) {
-        return text;
-      }
-
-      return `${text.slice(0, maxLength)}...`;
-    }
-
-    function buildReferenceReportAnalysis(sampleReports) {
-      if (!sampleReports.length) {
-        return `참고 보고서가 입력되지 않았으므로, 입력 자료의 성격에 맞는 기본 보고서 구조를 사용합니다.
-단, 보고서 유형을 임의로 특정하지 않고 입력 자료의 성격에 따라 목차를 구성합니다.`;
-      }
-
-      return sampleReports
-        .map((report, index) => {
-          return `[참고 보고서 ${index + 1}]
-${shortenText(report, 700)}`;
-        })
-        .join("\n\n");
-    }
-
     function buildOptimizedPrompt(data) {
       const sourceLinksBlock = formatNumberedList(data.sourceLinks, "입력 없음");
+
       const sampleReportBlock = data.sampleReports.length
         ? data.sampleReports
             .map((report, index) => `[참고 보고서 ${index + 1}]
@@ -482,6 +543,10 @@ ${sampleReportBlock}
 단, 위 순서를 반드시 고정하지 말고,
 참고 보고서의 형식과 입력 자료의 성격에 맞게 자연스럽게 조정하세요.
 
+중요:
+- 최종 답변에는 프롬프트 분석 과정 설명을 길게 쓰지 마세요.
+- 사용자가 바로 보고서 초안으로 활용할 수 있도록 보고서 본문만 중심으로 작성하세요.
+
 ────────────────────
 6. 작성 원칙
 ────────────────────
@@ -496,61 +561,30 @@ ${sampleReportBlock}
 `;
     }
 
-    function buildReport(data, optimizedPrompt) {
-      const sourceLinksBlock = formatNumberedList(
-        data.sourceLinks,
-        "참고 자료 링크가 입력되지 않았습니다."
-      );
+    function getInputData() {
+      return {
+        subject: document.getElementById("subjectInput").value.trim(),
+        region: document.getElementById("regionInput").value.trim(),
+        sourceLinks: collectValues(".source-link-input"),
+        issue: document.getElementById("issueInput").value.trim(),
+        indicator: document.getElementById("indicatorInput").value.trim(),
+        caseData: document.getElementById("caseInput").value.trim(),
+        sampleReports: collectValues(".sample-report-input")
+      };
+    }
 
-      const sampleReportAnalysis = buildReferenceReportAnalysis(data.sampleReports);
+    function validateInputData(data) {
+      if (!data.subject && !data.region) {
+        alert("보고서 주제 또는 지역/분석 범위 중 하나는 입력해주세요.");
+        return false;
+      }
 
-      return `
-[AI 보고서 형식 분석 결과]
-
-1. 보고서 주제 / 분석 대상
-
-${data.subject || "보고서 주제가 입력되지 않았습니다."}
-
-2. 지역 또는 분석 범위
-
-${data.region || "지역 또는 분석 범위가 입력되지 않았습니다."}
-
-3. 참고 자료 링크
-
-${sourceLinksBlock}
-
-4. 입력 자료 요약
-
-핵심 이슈 / 현장 메모:
-${data.issue || "입력된 핵심 이슈 또는 현장 메모가 없습니다."}
-
-수치 자료 / 변동 지표:
-${data.indicator || "입력된 수치 자료 또는 변동 지표가 없습니다."}
-
-주요 사례 / 근거 자료:
-${data.caseData || "입력된 주요 사례 또는 근거 자료가 없습니다."}
-
-5. 참고 보고서 형식 분석 대상
-
-${sampleReportAnalysis}
-
-6. 보고서 작성 방향
-
-입력된 참고 보고서는 단순히 내용을 복사하기 위한 자료가 아니라, 보고서의 형식과 논리 구조를 추출하기 위한 기준 자료입니다.
-AI는 참고 보고서의 제목 구성, 대목차, 문단 기호, 수치 제시 방식, 사례 정리 방식, 결론 도출 방식을 먼저 분석해야 합니다.
-
-그다음 입력된 새 자료를 분석된 형식에 맞게 재배치하여 새로운 보고서를 작성해야 합니다.
-이 과정에서 보고서 유형을 미리 주택 매매, 전월세, 토지, 상가, 임대동향 등으로 고정해서는 안 됩니다.
-참고 보고서와 입력 자료의 성격을 바탕으로 가장 적합한 보고서 유형과 목차를 스스로 추론해야 합니다.
-
-7. 최적화된 AI 변환 프롬프트
-
-${optimizedPrompt}
-`;
+      return true;
     }
 
     function copyTextFallback(text) {
       const textarea = document.createElement("textarea");
+
       textarea.value = text;
       textarea.style.position = "fixed";
       textarea.style.left = "-9999px";
@@ -560,14 +594,94 @@ ${optimizedPrompt}
       textarea.focus();
       textarea.select();
 
+      let copied = false;
+
       try {
-        document.execCommand("copy");
-        alert("AI 변환 프롬프트가 복사되었습니다.");
+        copied = document.execCommand("copy");
       } catch (error) {
-        alert("복사에 실패했습니다. 결과창의 프롬프트를 직접 복사해주세요.");
+        copied = false;
       }
 
       document.body.removeChild(textarea);
+
+      return copied;
+    }
+
+    async function copyTextToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (error) {
+          return copyTextFallback(text);
+        }
+      }
+
+      return copyTextFallback(text);
+    }
+
+    async function generateAndCopyPrompt(targetUrl) {
+      const data = getInputData();
+
+      if (!validateInputData(data)) {
+        return;
+      }
+
+      let openedWindow = null;
+
+      if (targetUrl) {
+        openedWindow = window.open("about:blank", "_blank");
+      }
+
+      latestPrompt = buildOptimizedPrompt(data);
+
+      const copied = await copyTextToClipboard(latestPrompt);
+
+      if (copied) {
+        copyStatusMessage.textContent =
+          "AI 변환 프롬프트가 복사되었습니다. 열린 AI 채팅창에 붙여넣고 실행하세요.";
+        copyStatusMessage.className = "text-sm text-green-700";
+      } else {
+        copyStatusMessage.textContent =
+          "자동 복사에 실패했습니다. 브라우저 권한을 확인하거나 다시 시도해주세요.";
+        copyStatusMessage.className = "text-sm text-red-700";
+      }
+
+      if (targetUrl) {
+        if (openedWindow) {
+          openedWindow.location.href = targetUrl;
+        } else {
+          window.open(targetUrl, "_blank");
+        }
+      }
+    }
+
+    function showFinalReport() {
+      const finalReport = finalReportInput.value.trim();
+
+      if (!finalReport) {
+        alert("ChatGPT 또는 Gemini에서 생성된 최종 보고서를 붙여넣어 주세요.");
+        return;
+      }
+
+      finalReportBox.textContent = finalReport;
+    }
+
+    async function copyFinalReport() {
+      const finalReport = finalReportBox.textContent.trim();
+
+      if (!finalReport || finalReport === "최종 보고서가 여기에 표시됩니다.") {
+        alert("먼저 최종 보고서를 출력해주세요.");
+        return;
+      }
+
+      const copied = await copyTextToClipboard(finalReport);
+
+      if (copied) {
+        alert("최종 보고서가 복사되었습니다.");
+      } else {
+        alert("복사에 실패했습니다. 최종 보고서 내용을 직접 복사해주세요.");
+      }
     }
 
     addSourceLinkBtn.addEventListener("click", addSourceLinkInput);
@@ -585,48 +699,20 @@ ${optimizedPrompt}
       }
     });
 
-    generateBtn.addEventListener("click", function () {
-      const data = {
-        subject: document.getElementById("subjectInput").value.trim(),
-        region: document.getElementById("regionInput").value.trim(),
-        sourceLinks: collectValues(".source-link-input"),
-        issue: document.getElementById("issueInput").value.trim(),
-        indicator: document.getElementById("indicatorInput").value.trim(),
-        caseData: document.getElementById("caseInput").value.trim(),
-        sampleReports: collectValues(".sample-report-input")
-      };
-
-      if (!data.subject && !data.region) {
-        alert("보고서 주제 또는 지역/분석 범위 중 하나는 입력해주세요.");
-        return;
-      }
-
-      latestPrompt = buildOptimizedPrompt(data);
-
-      const report = buildReport(data, latestPrompt);
-
-      resultBox.textContent = report;
-      copyPromptBtn.disabled = false;
+    copyPromptOnlyBtn.addEventListener("click", function () {
+      generateAndCopyPrompt(null);
     });
 
-    copyPromptBtn.addEventListener("click", async function () {
-      if (!latestPrompt) {
-        alert("먼저 보고서를 작성해주세요.");
-        return;
-      }
-
-      if (navigator.clipboard && window.isSecureContext) {
-        try {
-          await navigator.clipboard.writeText(latestPrompt);
-          alert("AI 변환 프롬프트가 복사되었습니다.");
-          return;
-        } catch (error) {
-          copyTextFallback(latestPrompt);
-        }
-      } else {
-        copyTextFallback(latestPrompt);
-      }
+    openChatGptBtn.addEventListener("click", function () {
+      generateAndCopyPrompt(CHATGPT_URL);
     });
+
+    openGeminiBtn.addEventListener("click", function () {
+      generateAndCopyPrompt(GEMINI_URL);
+    });
+
+    showFinalReportBtn.addEventListener("click", showFinalReport);
+    copyFinalReportBtn.addEventListener("click", copyFinalReport);
 
     addSourceLinkInput();
     addSampleReportInput();
