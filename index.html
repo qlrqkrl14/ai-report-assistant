@@ -27,49 +27,71 @@
         </p>
       </div>
 
-      <!-- AI 실행 단계: 상단 배치 -->
-      <div class="bg-blue-50 border border-blue-100 rounded-2xl p-5 space-y-3 mb-8">
-        <p class="font-bold text-blue-800">
-          AI 실행 단계
-        </p>
+      <!-- 상단 실행/사용 방법 영역 -->
+      <div class="grid lg:grid-cols-2 gap-6 mb-8">
 
-        <p class="text-sm text-blue-900 leading-relaxed">
-          아래 버튼을 누르면 AI 변환 프롬프트가 화면에 표시되지 않고 자동으로 복사됩니다.
-          복사된 프롬프트를 ChatGPT 또는 Gemini에 붙여넣고 실행하세요.
-        </p>
+        <!-- AI 실행 단계 -->
+        <div class="bg-blue-50 border border-blue-100 rounded-2xl p-5 space-y-3">
+          <p class="font-bold text-blue-800">
+            AI 실행 단계
+          </p>
 
-        <div class="grid md:grid-cols-3 gap-3">
-          <button
-            id="copyPromptOnlyBtn"
-            type="button"
-            class="bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition"
+          <p class="text-sm text-blue-900 leading-relaxed">
+            아래 버튼을 누르면 AI 변환 프롬프트가 화면에 표시되지 않고 자동으로 복사됩니다.
+            복사된 프롬프트를 ChatGPT 또는 Gemini에 붙여넣고 실행하세요.
+          </p>
+
+          <div class="grid md:grid-cols-3 gap-3">
+            <button
+              id="copyPromptOnlyBtn"
+              type="button"
+              class="bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition"
+            >
+              프롬프트 복사
+            </button>
+
+            <button
+              id="openChatGptBtn"
+              type="button"
+              class="bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-black transition"
+            >
+              복사 후 ChatGPT 열기
+            </button>
+
+            <button
+              id="openGeminiBtn"
+              type="button"
+              class="bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition"
+            >
+              복사 후 Gemini 열기
+            </button>
+          </div>
+
+          <p
+            id="copyStatusMessage"
+            class="text-sm text-slate-600"
           >
-            프롬프트 복사
-          </button>
-
-          <button
-            id="openChatGptBtn"
-            type="button"
-            class="bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-black transition"
-          >
-            복사 후 ChatGPT 열기
-          </button>
-
-          <button
-            id="openGeminiBtn"
-            type="button"
-            class="bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition"
-          >
-            복사 후 Gemini 열기
-          </button>
+            아직 프롬프트가 복사되지 않았습니다.
+          </p>
         </div>
 
-        <p
-          id="copyStatusMessage"
-          class="text-sm text-slate-600"
-        >
-          아직 프롬프트가 복사되지 않았습니다.
-        </p>
+        <!-- 사용 방법 -->
+        <div class="bg-slate-50 border rounded-2xl p-5">
+          <p class="font-bold mb-2">
+            사용 방법
+          </p>
+
+          <ol class="list-decimal list-inside text-sm text-slate-600 leading-relaxed space-y-1">
+            <li>아래 왼쪽 입력란에 보고서 재료를 입력합니다.</li>
+            <li>왼쪽 상단의 [복사 후 ChatGPT 열기] 또는 [복사 후 Gemini 열기]를 누릅니다.</li>
+            <li>열린 AI 채팅창에 붙여넣기 후 실행합니다.</li>
+            <li>AI가 생성한 보고서 초안을 오른쪽 칸에 붙여넣습니다.</li>
+            <li>수치, 표현, 문장, 오탈자 등을 사람이 직접 수정합니다.</li>
+            <li>[수정 완료 후 최종 보고서 출력하기]를 누르면 아래에 최종 보고서가 표시됩니다.</li>
+            <li>[최종 보고서 복사]를 누르면 최종본 전체가 복사됩니다.</li>
+          </ol>
+        </div>
+
       </div>
 
       <div class="grid lg:grid-cols-2 gap-6">
@@ -161,20 +183,6 @@
 
         <!-- 보고서 초안 수정 및 최종 보고서 출력 영역 -->
         <div class="space-y-5">
-
-          <div class="bg-slate-50 border rounded-2xl p-5">
-            <p class="font-bold mb-2">사용 방법</p>
-
-            <ol class="list-decimal list-inside text-sm text-slate-600 leading-relaxed space-y-1">
-              <li>왼쪽에 보고서 재료를 입력합니다.</li>
-              <li>상단의 [복사 후 ChatGPT 열기] 또는 [복사 후 Gemini 열기]를 누릅니다.</li>
-              <li>열린 AI 채팅창에 붙여넣기 후 실행합니다.</li>
-              <li>AI가 생성한 보고서 초안을 아래 칸에 붙여넣습니다.</li>
-              <li>수치, 표현, 문장, 오탈자 등을 사람이 직접 수정합니다.</li>
-              <li>[수정 완료 후 최종 보고서 출력하기]를 누르면 아래에 최종 보고서가 표시됩니다.</li>
-              <li>[최종 보고서 복사]를 누르면 최종본 전체가 복사됩니다.</li>
-            </ol>
-          </div>
 
           <div>
             <div class="flex items-center justify-between mb-2">
