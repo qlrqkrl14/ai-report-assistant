@@ -7,27 +7,169 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-slate-100 text-slate-900">
-  <main class="min-h-screen flex items-center justify-center p-6">
-    <section class="max-w-3xl w-full bg-white rounded-2xl shadow-xl p-8">
-      <p class="text-sm font-semibold text-blue-600 mb-2">AI CHALLENGE</p>
-      <h1 class="text-3xl font-bold mb-4">
-        바이브 코딩으로 완성하는 보고서 혁신
-      </h1>
-      <p class="text-slate-600 mb-6">
-        지역, 뉴스, 부동산 이슈, 현장 조사 변동률, 과거 우수 보고서를 바탕으로
-        AI가 보고서 초안을 생성하는 업무 어시스턴트입니다.
-      </p>
+  <main class="min-h-screen p-6">
+    <section class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl p-8">
+      
+      <div class="mb-8">
+        <p class="text-sm font-bold text-blue-600 mb-2">AI CHALLENGE</p>
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">
+          바이브 코딩으로 완성하는 보고서 혁신
+        </h1>
+        <p class="text-slate-600 leading-relaxed">
+          지역, 뉴스, 부동산 이슈, 현장 조사 변동률, 과거 우수 보고서 형식을 바탕으로
+          AI가 지역분석 보고서 초안을 생성하는 업무 어시스턴트입니다.
+        </p>
+      </div>
 
-      <textarea
-        class="w-full h-40 border rounded-xl p-4 mb-4"
-        placeholder="출장 메모, 지역 이슈, 조사 내용을 자유롭게 입력하세요."
-      ></textarea>
+      <div class="grid md:grid-cols-2 gap-6">
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block font-semibold mb-2">1. 지역</label>
+            <input 
+              id="regionInput"
+              type="text"
+              class="w-full border rounded-xl p-3"
+              placeholder="예: 인천 미추홀구"
+            />
+          </div>
 
-      <button class="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700">
-        보고서 작성
-      </button>
+          <div>
+            <label class="block font-semibold mb-2">2. 뉴스 링크</label>
+            <input 
+              id="newsInput"
+              type="text"
+              class="w-full border rounded-xl p-3"
+              placeholder="관련 뉴스 링크를 입력하세요"
+            />
+          </div>
+
+          <div>
+            <label class="block font-semibold mb-2">3. 부동산 이슈</label>
+            <textarea 
+              id="issueInput"
+              class="w-full h-28 border rounded-xl p-3"
+              placeholder="지역 부동산 이슈를 입력하세요"
+            ></textarea>
+          </div>
+
+          <div>
+            <label class="block font-semibold mb-2">4. 현장 조사 변동률</label>
+            <input 
+              id="rateInput"
+              type="text"
+              class="w-full border rounded-xl p-3"
+              placeholder="예: 전월 대비 2.3% 상승"
+            />
+          </div>
+
+          <div>
+            <label class="block font-semibold mb-2">5. 과거 보고서 참고 내용</label>
+            <textarea 
+              id="sampleInput"
+              class="w-full h-28 border rounded-xl p-3"
+              placeholder="우수 보고서의 문체나 구조를 입력하세요"
+            ></textarea>
+          </div>
+
+          <button 
+            id="generateBtn"
+            class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition"
+          >
+            보고서 작성
+          </button>
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-2">AI 보고서 초안</label>
+          <div 
+            id="resultBox"
+            class="min-h-[500px] bg-slate-50 border rounded-xl p-5 whitespace-pre-line text-sm leading-relaxed"
+          >
+            왼쪽 내용을 입력한 뒤 [보고서 작성] 버튼을 누르면 결과가 표시됩니다.
+          </div>
+        </div>
+
+      </div>
     </section>
   </main>
+
+  <script>
+    const generateBtn = document.getElementById("generateBtn");
+    const resultBox = document.getElementById("resultBox");
+
+    generateBtn.addEventListener("click", function () {
+      const region = document.getElementById("regionInput").value.trim();
+      const news = document.getElementById("newsInput").value.trim();
+      const issue = document.getElementById("issueInput").value.trim();
+      const rate = document.getElementById("rateInput").value.trim();
+      const sample = document.getElementById("sampleInput").value.trim();
+
+      if (!region) {
+        alert("지역을 입력해주세요.");
+        return;
+      }
+
+      const report = `
+[${region} 지역 부동산 동향 분석 보고서]
+
+1. 검토 배경
+
+본 보고서는 ${region} 지역의 최근 부동산 시장 동향과 현장 조사 내용을 종합하여 작성한 초안입니다.
+관련 뉴스, 지역 내 주요 이슈, 현장 조사 변동률, 과거 우수 보고서 형식을 참고하여 지역 시장의 변화 흐름을 파악하는 데 목적이 있습니다.
+
+2. 지역 현황
+
+${region} 지역은 최근 부동산 시장의 변동성이 확대되고 있는 지역으로, 거래량, 가격 흐름, 개발 이슈, 생활 인프라 변화 등이 복합적으로 작용하고 있습니다.
+특히 현장 조사 결과와 외부 보도자료를 함께 검토할 필요가 있습니다.
+
+3. 주요 뉴스 및 이슈
+
+관련 뉴스:
+${news || "관련 뉴스 링크가 입력되지 않았습니다."}
+
+지역 부동산 이슈:
+${issue || "지역 부동산 이슈가 입력되지 않았습니다."}
+
+위 내용을 종합하면, 해당 지역의 부동산 시장은 단일 요인보다는 지역 개발, 수요 변화, 정책 환경, 현장 체감 분위기 등이 함께 영향을 미치고 있는 것으로 보입니다.
+
+4. 현장 조사 변동률 분석
+
+입력된 변동률:
+${rate || "변동률이 입력되지 않았습니다."}
+
+해당 변동률은 현장 조사 과정에서 확인된 시장 분위기를 수치화한 자료로 볼 수 있습니다.
+변동률이 상승세를 보이는 경우에는 매수 문의 증가, 개발 기대감, 공급 부족 등의 요인을 검토할 필요가 있으며,
+하락세를 보이는 경우에는 거래 위축, 금리 부담, 매수 심리 약화 등의 요인을 함께 분석할 필요가 있습니다.
+
+5. 종합 판단
+
+${region} 지역은 최근 부동산 관련 이슈와 현장 조사 결과를 종합적으로 검토할 때, 단기적 시장 변화뿐 아니라 중장기적 지역 여건 변화까지 함께 살펴볼 필요가 있습니다.
+향후 보고서 작성 시에는 거래량 추이, 가격 변동률, 주요 개발계획, 현장 의견 등을 추가로 반영하면 보다 완성도 높은 분석이 가능할 것으로 판단됩니다.
+
+6. AI 변환 프롬프트
+
+당신은 지역 부동산 동향을 분석하는 전문 보고서 작성 어시스턴트입니다.
+
+아래 입력 자료를 바탕으로 공공기관 내부 보고서 형식의 지역분석 보고서 초안을 작성하세요.
+
+- 분석 지역: ${region}
+- 관련 뉴스 링크: ${news || "입력 없음"}
+- 지역 부동산 이슈: ${issue || "입력 없음"}
+- 현장 조사 변동률: ${rate || "입력 없음"}
+- 참고 보고서 형식: ${sample || "입력 없음"}
+
+작성 기준:
+- 검토 배경, 지역 현황, 주요 이슈, 현장 조사 내용, 종합 판단 순서로 작성
+- 단순 나열이 아니라 원인과 영향을 분석
+- 문체는 객관적이고 공식적인 보고서형 문장 사용
+- 과장 표현은 피하고, 확인된 내용과 판단 내용을 구분
+`;
+
+      resultBox.textContent = report;
+    });
+  </script>
 </body>
 </html>
