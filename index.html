@@ -662,16 +662,16 @@ ${sampleReportBlock}
       }
     }
 
-    function showFinalReport() {
-      const finalReport = finalReportInput.value.trim();
+function showFinalReport() {
+  const finalReport = finalReportInput.value.trim();
 
-      if (!finalReport) {
-        alert("ChatGPT 또는 Gemini에서 생성된 최종 보고서를 붙여넣어 주세요.");
-        return;
-      }
+  if (!finalReport) {
+    alert("ChatGPT 또는 Gemini에서 생성된 보고서 초안을 붙여넣은 뒤, 필요한 부분을 수정해주세요.");
+    return;
+  }
 
-      finalReportBox.textContent = finalReport;
-    }
+  finalReportBox.textContent = finalReport;
+}
 
     async function copyFinalReport() {
       const finalReport = finalReportBox.textContent.trim();
