@@ -673,22 +673,25 @@ function showFinalReport() {
   finalReportBox.textContent = finalReport;
 }
 
-    async function copyFinalReport() {
-      const finalReport = finalReportBox.textContent.trim();
+async function copyFinalReport() {
+  const finalReport = finalReportBox.textContent.trim();
 
-      if (!finalReport || finalReport === "최종 보고서가 여기에 표시됩니다.") {
-        alert("먼저 최종 보고서를 출력해주세요.");
-        return;
-      }
+  if (
+    !finalReport ||
+    finalReport === "수기 수정이 완료된 최종 보고서가 여기에 표시됩니다."
+  ) {
+    alert("먼저 수정 완료 후 최종 보고서를 출력해주세요.");
+    return;
+  }
 
-      const copied = await copyTextToClipboard(finalReport);
+  const copied = await copyTextToClipboard(finalReport);
 
-      if (copied) {
-        alert("최종 보고서가 복사되었습니다.");
-      } else {
-        alert("복사에 실패했습니다. 최종 보고서 내용을 직접 복사해주세요.");
-      }
-    }
+  if (copied) {
+    alert("최종 보고서가 복사되었습니다.");
+  } else {
+    alert("복사에 실패했습니다. 최종 보고서 내용을 직접 복사해주세요.");
+  }
+}
 
     addSourceLinkBtn.addEventListener("click", addSourceLinkInput);
     addSampleReportBtn.addEventListener("click", addSampleReportInput);
