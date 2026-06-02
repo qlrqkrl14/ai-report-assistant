@@ -21,14 +21,17 @@
   --reb-blue: #155da8;
   --reb-cyan: #25b7e5;
 
-  --apple-gold: #d8b45f;
-  --apple-gold-light: #f6e3b2;
-  --apple-gold-soft: #fff7e3;
-  --apple-gold-deep: #a97824;
+  --apple-gold: #e2c36f;
+  --apple-gold-light: #f7e7bd;
+  --apple-gold-soft: #fff9e9;
+  --apple-gold-deep: #b78d37;
 
-  --apple-silver: #f5f6f7;
+  --apple-silver: #f7f8f9;
   --apple-silver-2: #e8ecef;
   --apple-silver-3: #cfd6dc;
+  --apple-dark-silver-light: #b6bec5;
+  --apple-dark-silver: #858f99;
+  --apple-dark-silver-deep: #68737d;
   --apple-graphite: #1f2328;
   --apple-graphite-2: #343a40;
 
@@ -166,6 +169,9 @@ body {
   button {
     border-radius: 16px !important;
     letter-spacing: -0.02em;
+    border: 1px solid rgba(255, 255, 255, 0.58) !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     transition:
       transform 0.16s ease,
       box-shadow 0.16s ease,
@@ -196,35 +202,46 @@ body {
   }
 
   .bg-slate-900 {
-    background: #1d1d1f !important;
+    background:
+      linear-gradient(135deg, var(--apple-dark-silver-light) 0%, var(--apple-dark-silver) 48%, var(--apple-dark-silver-deep) 100%) !important;
     color: #ffffff !important;
-    box-shadow: 0 10px 22px rgba(29, 29, 31, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.30) !important;
+    box-shadow:
+      0 14px 28px rgba(93, 104, 114, 0.20),
+      inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
   }
 
   .hover\:bg-black:hover {
-    background: #000000 !important;
+    background:
+      linear-gradient(135deg, #c0c7ce 0%, #909aa4 50%, #75808a 100%) !important;
   }
 
   .bg-purple-600 {
-    background: linear-gradient(135deg, var(--coral), var(--lavender)) !important;
-    color: #3e2b35 !important;
-    box-shadow: 0 10px 22px rgba(220, 192, 206, 0.34);
+    background:
+      linear-gradient(135deg, #fbf8ef 0%, #eef1f3 55%, #dfe5e8 100%) !important;
+    color: #3a3429 !important;
+    border: 1px solid rgba(207, 214, 220, 0.88) !important;
+    box-shadow: var(--silver-shadow) !important;
   }
 
   .hover\:bg-purple-700:hover {
-    background: linear-gradient(135deg, #f09691, #d3b3c3) !important;
+    background:
+      linear-gradient(135deg, #ffffff 0%, #eef1f3 55%, #e0e5e9 100%) !important;
   }
 
   .bg-amber-500,
   .bg-amber-600 {
-    background: linear-gradient(135deg, #f4a950, var(--coral)) !important;
-    color: #ffffff !important;
-    box-shadow: 0 10px 22px rgba(244, 162, 157, 0.28);
+    background:
+      linear-gradient(135deg, #f7e4b3 0%, var(--apple-gold) 58%, #d0a957 100%) !important;
+    color: #302410 !important;
+    border: 1px solid rgba(216, 180, 95, 0.58) !important;
+    box-shadow: 0 14px 28px rgba(168, 120, 36, 0.15) !important;
   }
 
   .hover\:bg-amber-600:hover,
   .hover\:bg-amber-700:hover {
-    background: linear-gradient(135deg, #ec9b39, #ec918c) !important;
+    background:
+      linear-gradient(135deg, #f9eac5 0%, #e4c26d 58%, #c79c45 100%) !important;
   }
 
   .bg-blue-50 {
@@ -267,9 +284,12 @@ body {
   }
 
   .bg-amber-50 {
-    background: rgba(255, 248, 223, 0.84) !important;
-    border-color: rgba(248, 211, 188, 0.9) !important;
-    box-shadow: var(--shadow-card);
+    background:
+      linear-gradient(145deg, rgba(255, 253, 247, 0.94), rgba(247, 248, 249, 0.88)) !important;
+    border: 1px solid rgba(226, 195, 111, 0.32) !important;
+    box-shadow:
+      0 22px 48px rgba(168, 120, 36, 0.09),
+      inset 0 1px 0 rgba(255, 255, 255, 0.82) !important;
   }
 
   .text-amber-800,
@@ -311,13 +331,65 @@ body {
   }
 
   #copyFinalReportBtn {
-    background: linear-gradient(135deg, #f2c86b, #f4a29d) !important;
-    color: #3b2a1f !important;
-    box-shadow: 0 14px 26px rgba(244, 162, 157, 0.28);
+    background:
+      linear-gradient(135deg, #f7e4b3 0%, #e2c36f 52%, #cda052 100%) !important;
+    color: #2f2411 !important;
+    border: 1px solid rgba(205, 160, 82, 0.50) !important;
+    box-shadow:
+      0 16px 32px rgba(168, 120, 36, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.66) !important;
+    font-weight: 800 !important;
   }
 
   #copyFinalReportBtn:hover {
-    background: linear-gradient(135deg, #edbd57, #ef928c) !important;
+    background:
+      linear-gradient(135deg, #f9e9c3 0%, #dfbd63 52%, #bf9140 100%) !important;
+  }
+
+
+  #openChatGptBtn,
+  #openAdjustChatGptBtn {
+    background:
+      linear-gradient(135deg, var(--apple-dark-silver-light) 0%, var(--apple-dark-silver) 48%, var(--apple-dark-silver-deep) 100%) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.30) !important;
+    box-shadow:
+      0 14px 28px rgba(93, 104, 114, 0.20),
+      inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
+  }
+
+  #openChatGptBtn:hover,
+  #openAdjustChatGptBtn:hover {
+    background:
+      linear-gradient(135deg, #c0c7ce 0%, #909aa4 50%, #75808a 100%) !important;
+  }
+
+  #openGeminiBtn,
+  #openAdjustGeminiBtn {
+    background:
+      linear-gradient(135deg, #fbf8ef 0%, #eef1f3 55%, #dfe5e8 100%) !important;
+    color: #3a3429 !important;
+    border: 1px solid rgba(207, 214, 220, 0.88) !important;
+    box-shadow: var(--silver-shadow) !important;
+  }
+
+  #openGeminiBtn:hover,
+  #openAdjustGeminiBtn:hover {
+    background:
+      linear-gradient(135deg, #ffffff 0%, #eef1f3 55%, #e0e5e9 100%) !important;
+  }
+
+  #copyAdjustPromptBtn {
+    background:
+      linear-gradient(135deg, #f7e4b3 0%, var(--apple-gold) 58%, #d0a957 100%) !important;
+    color: #302410 !important;
+    border: 1px solid rgba(216, 180, 95, 0.58) !important;
+    box-shadow: 0 14px 28px rgba(168, 120, 36, 0.15) !important;
+  }
+
+  #copyAdjustPromptBtn:hover {
+    background:
+      linear-gradient(135deg, #f9eac5 0%, #e4c26d 58%, #c79c45 100%) !important;
   }
 
   @media (max-width: 768px) {
@@ -1223,7 +1295,7 @@ ${sampleReportBlock}
 
     function buildLengthAdjustmentPrompt() {
       const originalText = finalReportInput.value.trim();
-      const rawTargetLength = targetLengthInput.value.trim() || "1170자";
+      const targetLength = targetLengthInput.value.trim() || "1170자";
       const lengthBasis = lengthBasisSelect.value || "공백 포함";
 
       if (!originalText) {
@@ -1231,112 +1303,57 @@ ${sampleReportBlock}
         return null;
       }
 
-      const countWithSpace = originalText.length;
-      const countWithoutSpace = originalText.replace(/\s/g, "").length;
-      const basisCount = lengthBasis === "공백 제외" ? countWithoutSpace : countWithSpace;
-
-      function parseTargetLength(rawValue, baseCount) {
-        const value = String(rawValue || "").replace(/\s/g, "");
-
-        const percentMatch = value.match(/^(\d+(?:\.\d+)?)%$/);
-        if (percentMatch) {
-          return Math.max(1, Math.round(baseCount * (Number(percentMatch[1]) / 100)));
-        }
-
-        const multipleMatch = value.match(/^(\d+(?:\.\d+)?)(배|x|X)$/);
-        if (multipleMatch) {
-          return Math.max(1, Math.round(baseCount * Number(multipleMatch[1])));
-        }
-
-        const numberMatch = value.match(/(\d+(?:,\d{3})*|\d+)/);
-        if (numberMatch) {
-          return Math.max(1, Number(numberMatch[1].replace(/,/g, "")));
-        }
-
-        return null;
-      }
-
-      const targetCount = parseTargetLength(rawTargetLength, basisCount);
-      const lowerLimit = targetCount ? Math.max(1, Math.floor(targetCount * 0.95)) : null;
-      const upperLimit = targetCount || null;
-      const targetGuide = targetCount
-        ? `목표 ${targetCount.toLocaleString()}자, 허용 범위 ${lowerLimit.toLocaleString()}자 이상 ${upperLimit.toLocaleString()}자 이하`
-        : `사용자 입력 목표 분량: ${rawTargetLength}`;
-
       return `
-너는 한국어 보고서 전문 편집자다. 아래 원문을 목표 글자 수에 맞게 다시 편집하라.
+너는 보고서 전문 편집자다. 주어진 분량 조건에 맞춰 내용을 조정하되, 형식, 문체, 서술어 종결, 문장 순서, 문단 구조, 숫자 및 핵심 사실은 반드시 유지해야 한다.
 
-이번 작업에서 가장 중요한 조건은 "글자 수 준수"다.
-내용 보존과 형식 유지는 중요하지만, 목표 글자 수를 넘기는 결과는 실패다.
+다음 문서를 주어진 분량 조건에 맞게 편집하라.
 
-────────────────────
-1. 분량 조건
-────────────────────
-- 목표 분량 입력값: ${rawTargetLength}
-- 글자 수 기준: ${lengthBasis}
-- 원문 글자 수(공백 포함): ${countWithSpace.toLocaleString()}자
-- 원문 글자 수(공백 제외): ${countWithoutSpace.toLocaleString()}자
-- 적용 기준 원문 글자 수: ${basisCount.toLocaleString()}자
-- 최종 결과 글자 수 조건: ${targetGuide}
+[작업 목표]
+- 원문의 전체 의미와 논리 흐름을 유지한 상태에서 분량만 조정하라.
+- 아래에 입력된 목표 분량과 글자 수 기준을 적용하라.
+- 목표 분량이 비율로 주어진 경우에는 먼저 원문 기준 글자 수를 계산한 뒤, 그 값을 기준으로 목표 글자 수를 산정하라.
+- 분량만 조정하고, 형식적·구조적 형태는 유지하라.
 
-반드시 위 조건을 지켜라.
-특히 목표가 ${targetCount ? `${targetCount.toLocaleString()}자` : rawTargetLength}인 경우, 결과문은 절대 목표 글자 수를 초과하면 안 된다.
-목표보다 길어질 것 같으면 문장을 더 압축하고, 반복 표현과 주변 설명을 삭제한 뒤 다시 계산하여 출력하라.
+[형식 유지 조건]
+- 제목, 소제목, 번호 체계, 항목 체계, 문단 구분, 줄바꿈, 문장 순서, 문단 순서를 유지하라.
+- 문체와 서술어 종결 형식을 유지하라.
+- 보고서체, 개조식, 서술식, 공문체 등 원문의 표현 형식을 그대로 유지하라.
+- 문장을 임의로 새로 만들지 말고, 가능한 범위에서 기존 문장을 조정하는 방식으로 편집하라.
+- 문장을 합치거나 나누는 방식은 최소화하되, 원문 형식을 해치지 않는 범위에서만 허용하라.
+- 형태적·구조적 형식은 바꾸지 말라.
 
-────────────────────
-2. 글자 수 계산 기준
-────────────────────
-- "공백 포함" 기준일 때는 한글, 영문, 숫자, 문장부호, 띄어쓰기, 줄바꿈을 모두 1자로 계산한다.
-- "공백 제외" 기준일 때는 띄어쓰기와 줄바꿈을 제외하고 계산한다.
-- 출력 전에 반드시 스스로 결과문 글자 수를 직접 계산하라.
-- 계산 결과가 허용 범위를 넘으면 출력하지 말고, 다시 줄여서 허용 범위 안에 들어간 결과문만 출력하라.
-- 계산표, 계산 과정, 설명은 출력하지 않는다. 결과문만 출력한다.
+[내용 유지 조건]
+- 핵심 주장, 핵심 사실, 결론, 근거는 유지하라.
+- 숫자, 수치, 비율, 날짜, 기간, 금액, 인원, 고유명사, 성과 지표 등 정량적·사실적 정보는 유지하라.
+- 세부 내용 중 판단 근거가 되는 정보는 삭제하거나 왜곡하지 말라.
+- 의미를 바꾸거나 해석을 덧붙이지 말라.
+- 새 정보를 추가하지 말라.
+- 원문 표현을 최대한 살리면서 필요한 범위 안에서만 조정하라.
 
-────────────────────
-3. 압축 우선순위
-────────────────────
-분량을 줄여야 할 경우 아래 순서대로 줄여라.
-1) 반복 표현, 관성적 연결어, 장황한 수식어 삭제
-2) 같은 의미의 문장 통합
-3) 부연 설명, 배경 설명, 중요도가 낮은 판단 문장 삭제
-4) 사례가 여러 개인 경우 핵심 사례만 남기고 나머지는 간결하게 압축
-5) 결론은 유지하되 문장을 짧게 정리
-6) 그래도 길면 목차와 형식은 유지하되 각 항목의 문장 수를 줄임
+[편집 원칙]
+- 분량을 줄여야 할 경우에는 반복 표현, 중복 설명, 의미가 약한 수식어, 관성적 연결어, 장황한 표현을 우선적으로 줄여라.
+- 분량을 늘려야 할 경우에는 원문의 의미를 벗어나지 않는 범위에서 표현을 풀어 쓰되, 새로운 사실이나 해석은 추가하지 말라.
+- 핵심 정보는 남기고 주변 표현만 조정하라.
+- 문장의 정보 밀도를 조정하되, 문체와 형식은 바꾸지 말라.
+- 목표 분량 충족이 어렵다고 판단될 경우에는 형식, 숫자, 핵심 사실 보존을 우선하고, 그 범위 안에서 목표 분량에 최대한 가깝게 조정하라.
 
-────────────────────
-4. 확장 우선순위
-────────────────────
-분량을 늘려야 할 경우에도 새 사실을 만들지 말고 아래 방식으로만 늘려라.
-1) 원문 의미를 풀어 쓰기
-2) 생략된 인과관계를 원문 범위 안에서 명확히 쓰기
-3) 문단 간 연결을 자연스럽게 보완하기
-4) 숫자와 사례의 의미를 원문 범위 안에서 설명하기
+[검토 기준]
+- 편집 후에도 원문의 구조가 유지되어야 한다.
+- 편집 후에도 숫자 및 핵심 사실이 누락되거나 변형되지 않아야 한다.
+- 편집 후에도 문체와 종결 표현이 달라지지 않아야 한다.
+- 편집 후에도 아래 목표 분량 조건을 충족해야 한다.
 
-────────────────────
-5. 반드시 유지할 내용
-────────────────────
-- 핵심 주장, 결론, 주요 근거
-- 숫자, 수치, 날짜, 금액, 비율, 고유명사, 지역명, 단지명, 기관명
-- 보고서의 기본 문체와 종결 표현
-- 제목, 소제목, 번호 체계, 항목 체계는 가능한 유지
-
-단, 목표 글자 수를 맞추기 위해 불가피한 경우에는 제목과 항목 체계는 유지하되, 각 항목의 문장 수와 설명량을 과감히 줄여라.
-
-────────────────────
-6. 금지 사항
-────────────────────
-- 목표 글자 수를 초과한 결과를 출력하지 말 것
-- 글자 수 계산 결과나 설명을 출력하지 말 것
-- "요약하면", "수정했습니다", "아래는" 같은 안내 문장을 쓰지 말 것
-- 원문에 없는 새로운 사실, 수치, 사례를 추가하지 말 것
-- 숫자와 고유명사를 임의로 바꾸지 말 것
-
-────────────────────
-7. 출력 방식
-────────────────────
-- 최종 편집본만 출력하라.
+[출력 방식]
+- 결과문만 출력하라.
 - 설명, 해설, 주석, 변경 이유, 계산 과정은 출력하지 말라.
-- 결과문은 반드시 ${targetGuide} 조건을 만족해야 한다.
+- 원문 형식을 유지한 편집본만 제시하라.
+
+출력 전에 원문 글자 수와 결과문 글자 수를 같은 기준으로 직접 계산하여 목표 분량 충족 여부를 스스로 검증한 뒤, 형식 유지, 숫자 유지, 문체 유지 조건까지 모두 만족하는 결과만 출력하라.
+
+[분량 조건]
+- 목표 분량 {여기에 목표 글자 수 또는 축약/확장 비율 입력} = ${targetLength}
+- 글자 수 기준 {공백 포함 / 공백 제외 중 선택} = ${lengthBasis}
+- 원문 기준 글자 수 {별도 입력이 없으면 위 기준에 따라 스스로 계산} = 자동 산정
 
 [원문]
 ${originalText}
