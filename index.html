@@ -146,14 +146,55 @@
             ></textarea>
           </div>
 
-          <div>
-            <label class="block font-semibold mb-2">5. 수치 자료 / 변동 지표</label>
-            <textarea
-              id="indicatorInput"
-              class="w-full h-28 border rounded-xl p-3"
-              placeholder="예: 거래량 25건→10건 / 매물량 7,903건→7,841건 / 임대료 3.3㎡당 12만 원→13만 원 / 공실률 8%→11%"
-            ></textarea>
-          </div>
+<div>
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-2">
+    <label class="block font-semibold">5. 수치 자료 / 변동 지표</label>
+
+    <div class="flex items-center gap-2">
+      <select
+        id="trendDirectionSelect"
+        class="border rounded-xl px-3 py-2 text-sm bg-white"
+      >
+        <option value="보합">보합</option>
+        <option value="상승">상승</option>
+        <option value="급상승">급상승</option>
+        <option value="하락">하락</option>
+        <option value="급락">급락</option>
+      </select>
+
+      <span
+        id="trendSignLabel"
+        class="w-6 text-center font-bold text-slate-700"
+      >
+        ±
+      </span>
+
+      <input
+        id="trendRateInput"
+        type="number"
+        min="0"
+        step="0.01"
+        class="w-24 border rounded-xl px-3 py-2 text-sm"
+        placeholder="0.23"
+      />
+
+      <span class="text-sm font-semibold text-slate-600">%</span>
+    </div>
+  </div>
+
+  <textarea
+    id="indicatorInput"
+    class="w-full h-28 border rounded-xl p-3"
+    placeholder="예: 거래량 25건→10건 / 매물량 7,903건→7,841건 / 임대료 3.3㎡당 12만 원→13만 원 / 공실률 8%→11%"
+  ></textarea>
+
+  <p
+    id="trendPreviewText"
+    class="mt-2 text-xs text-slate-500"
+  >
+    방향성 미입력: 보합 또는 별도 판단 필요
+  </p>
+</div>
 
           <div>
             <label class="block font-semibold mb-2">6. 주요 사례 / 근거 자료</label>
@@ -333,6 +374,10 @@
     const openAdjustGeminiBtn = document.getElementById("openAdjustGeminiBtn");
 
     const adjustPromptStatusMessage = document.getElementById("adjustPromptStatusMessage");
+    const trendDirectionSelect = document.getElementById("trendDirectionSelect");
+    const trendRateInput = document.getElementById("trendRateInput");
+    const trendSignLabel = document.getElementById("trendSignLabel");
+    const trendPreviewText = document.getElementById("trendPreviewText");
 
     let latestPrompt = "";
 
@@ -484,7 +529,84 @@
         .map((item, index) => `${index + 1}. ${item}`)
         .join("\n");
     }
+    function getTrendSign(direction) {
+  if (direction === "상승" || direction === "급상승") {
+    return "+";
+  }
 
+  if (direction === "하락" || direction === "급락") {
+    return "-";
+  }
+
+  return "±";
+}
+
+function getTrendExpression(direction, rate) {
+  const sign = getTrendSign(direction);
+
+  if (!rate) {
+    if (direction === "보합") {
+      return "보합(0.00%) 또는 제한적 변동";
+    }
+
+    return `${direction}(변동률 별도 입력 없음)`;
+  }
+
+  const numberRate = Number(rate);
+  const formattedRate = Number.isNaN(numberRate)
+    ? rate
+    : numberRate.toFixed(2);
+
+  if (direction === "보합") {
+    return `보합(${formattedRate}%)`;
+  }
+
+  return `${direction}(${sign}${formattedRate}%)`;
+}
+
+function getTrendReportPhrase(direction, rate) {
+  const expression = getTrendExpression(direction, rate);
+
+  if (direction === "급상승") {
+    return `${expression}으로 나타나 상승폭이 크게 확대된 흐름으로 정리할 수 있음.`;
+  }
+
+  if (direction === "상승") {
+    return `${expression}으로 나타나 상승세 또는 상승폭 확대 여부를 중심으로 검토할 필요가 있음.`;
+  }
+
+  if (direction === "보합") {
+    return `${expression}으로 나타나 가격 흐름은 보합권 또는 제한적 변동 수준으로 판단할 수 있음.`;
+  }
+
+  if (direction === "하락") {
+    return `${expression}으로 나타나 하락세 또는 하락폭 확대·축소 여부를 중심으로 검토할 필요가 있음.`;
+  }
+
+  if (direction === "급락") {
+    return `${expression}으로 나타나 하락폭이 크게 확대된 흐름으로 정리할 수 있음.`;
+  }
+
+  return expression;
+}
+
+function updateTrendPreview() {
+  const direction = trendDirectionSelect.value;
+  const rate = trendRateInput.value.trim();
+
+  const sign = getTrendSign(direction);
+  trendSignLabel.textContent = sign;
+
+  if (direction === "상승" || direction === "급상승") {
+    trendSignLabel.className = "w-6 text-center font-bold text-red-600";
+  } else if (direction === "하락" || direction === "급락") {
+    trendSignLabel.className = "w-6 text-center font-bold text-blue-600";
+  } else {
+    trendSignLabel.className = "w-6 text-center font-bold text-slate-700";
+  }
+
+  trendPreviewText.textContent = getTrendReportPhrase(direction, rate);
+}
     function buildOptimizedPrompt(data) {
       const sourceLinksBlock = formatNumberedList(data.sourceLinks, "입력 없음");
 
@@ -528,6 +650,12 @@ ${data.issue || "입력 없음"}
 
 [수치 자료 / 변동 지표]
 ${data.indicator || "입력 없음"}
+
+[시장 방향성 / 변동률]
+${data.trendExpression || "입력 없음"}
+
+[보고서 표현 참고]
+${data.trendReportPhrase || "입력 없음"}
 
 [주요 사례 / 근거 자료]
 ${data.caseData || "입력 없음"}
@@ -614,6 +742,12 @@ ${sampleReportBlock}
 5. 수치 자료 / 변동 지표
    - 변동률, 거래량, 매물량, 임대료, 공실률, 가격 변화 등 수치가 필요한 문단에 배치합니다.
    - 변화 전후가 있는 경우 화살표 또는 비교 문장으로 표현합니다.
+   - 시장 방향성과 변동률은 보고서 본문에서 “상승(+0.23%)”, “하락(-0.23%)”, “급상승(+0.50%)”, “급락(-0.50%)”, “보합(0.00%)”과 같은 형식으로 표기합니다.
+   - 대괄호 형식인 “[상승] [+0.23]%”처럼 쓰지 말고, 반드시 “상승(+0.23%)” 형식으로 자연스럽게 문장 안에 반영합니다.
+   - 시장 방향성이 상승 또는 급상승이면 “상승세”, “상승폭 확대”, “강세” 등의 표현을 사용합니다.
+   - 시장 방향성이 하락 또는 급락이면 “하락세”, “하락폭 확대”, “약세” 등의 표현을 사용합니다.
+   - 시장 방향성이 보합이면 “보합”, “강보합”, “약보합”, “제한적 변동” 중 입력 자료에 맞는 표현을 사용합니다.
+   - 단, 급상승·급락 표현은 수치와 현장 메모가 이를 뒷받침할 때만 사용합니다.
 
 6. 주요 사례 / 근거 자료
    - 참고 보고서의 사례 제시 방식에 맞춰 본문 또는 별도 하위 항목에 배치합니다.
@@ -660,6 +794,10 @@ ${sampleReportBlock}
         sourceLinks: collectValues(".source-link-input"),
         issue: document.getElementById("issueInput").value.trim(),
         indicator: document.getElementById("indicatorInput").value.trim(),
+        trendDirection: trendDirectionSelect.value,
+        trendRate: trendRateInput.value.trim(),
+        trendExpression: getTrendExpression(trendDirectionSelect.value, trendRateInput.value.trim()),
+        trendReportPhrase: getTrendReportPhrase(trendDirectionSelect.value, trendRateInput.value.trim()),
         caseData: document.getElementById("caseInput").value.trim(),
         sampleReports: collectValues(".sample-report-input")
       };
@@ -915,6 +1053,8 @@ ${originalText}
       generateAndCopyAdjustmentPrompt(GEMINI_URL);
     });
 
+    trendDirectionSelect.addEventListener("change", updateTrendPreview);
+    trendRateInput.addEventListener("input", updateTrendPreview);
     finalReportInput.addEventListener("input", updateDraftCharacterCount);
 
     copyFinalReportBtn.addEventListener("click", copyFinalReport);
@@ -922,6 +1062,7 @@ ${originalText}
     addSourceLinkInput();
     addSampleReportInput();
     updateDraftCharacterCount();
+    updateTrendPreview();
   </script>
 </body>
 </html>
