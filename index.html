@@ -13,12 +13,281 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <style>
-    body {
-      font-family: "NanumSquareNeo", "NanumSquare Neo", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-      font-weight: 400;
+<style>
+  :root {
+    --ink: #1d1d1f;
+    --sub-ink: #5f6368;
+
+    --paper: rgba(255, 255, 255, 0.82);
+    --paper-solid: #ffffff;
+
+    --mint-bg: #eef7f2;
+    --mint-soft: #dcece4;
+    --sage: #9ab8a3;
+    --sage-deep: #7f9f8d;
+
+    --cream: #fff8df;
+    --peach: #f8d3bc;
+    --coral: #f4a29d;
+    --lavender: #dcc0ce;
+    --mist: #d8dde3;
+
+    --line: rgba(29, 29, 31, 0.10);
+    --shadow-soft: 0 24px 70px rgba(40, 58, 50, 0.12);
+    --shadow-card: 0 12px 32px rgba(40, 58, 50, 0.08);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "NanumSquareNeo", "NanumSquare Neo", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    font-weight: 400;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 10% 0%, rgba(220, 236, 228, 0.95) 0%, transparent 34%),
+      radial-gradient(circle at 90% 8%, rgba(248, 211, 188, 0.85) 0%, transparent 30%),
+      linear-gradient(135deg, #fbfbf7 0%, var(--mint-bg) 46%, #f7f3ef 100%) !important;
+  }
+
+  main {
+    padding-top: 28px !important;
+    padding-bottom: 48px !important;
+  }
+
+  main > section {
+    background: var(--paper) !important;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    box-shadow: var(--shadow-soft) !important;
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+  }
+
+  h1 {
+    color: var(--ink);
+    letter-spacing: -0.045em;
+    line-height: 1.08;
+  }
+
+  p,
+  label,
+  li,
+  span {
+    letter-spacing: -0.015em;
+  }
+
+  label,
+  .font-semibold,
+  .font-bold {
+    color: var(--ink);
+  }
+
+  .text-slate-600,
+  .text-slate-500 {
+    color: var(--sub-ink) !important;
+  }
+
+  .text-blue-600 {
+    color: var(--sage-deep) !important;
+  }
+
+  input,
+  textarea,
+  select {
+    border: 1px solid var(--line) !important;
+    background: rgba(255, 255, 255, 0.78) !important;
+    border-radius: 18px !important;
+    color: var(--ink) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: rgba(95, 99, 104, 0.58) !important;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none !important;
+    border-color: rgba(127, 159, 141, 0.72) !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    box-shadow:
+      0 0 0 4px rgba(154, 184, 163, 0.20),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+  }
+
+  button {
+    border-radius: 16px !important;
+    letter-spacing: -0.02em;
+    transition:
+      transform 0.16s ease,
+      box-shadow 0.16s ease,
+      background 0.16s ease,
+      opacity 0.16s ease;
+  }
+
+  button:hover {
+    transform: translateY(-1px);
+  }
+
+  button:active {
+    transform: translateY(0);
+    opacity: 0.88;
+  }
+
+  .bg-blue-600 {
+    background: linear-gradient(135deg, var(--sage-deep), var(--sage)) !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 22px rgba(127, 159, 141, 0.24);
+  }
+
+  .hover\:bg-blue-700:hover {
+    background: linear-gradient(135deg, #6f927d, #91ad9a) !important;
+  }
+
+  .bg-slate-900 {
+    background: #1d1d1f !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 22px rgba(29, 29, 31, 0.22);
+  }
+
+  .hover\:bg-black:hover {
+    background: #000000 !important;
+  }
+
+  .bg-purple-600 {
+    background: linear-gradient(135deg, var(--coral), var(--lavender)) !important;
+    color: #3e2b35 !important;
+    box-shadow: 0 10px 22px rgba(220, 192, 206, 0.34);
+  }
+
+  .hover\:bg-purple-700:hover {
+    background: linear-gradient(135deg, #f09691, #d3b3c3) !important;
+  }
+
+  .bg-amber-500,
+  .bg-amber-600 {
+    background: linear-gradient(135deg, #f4a950, var(--coral)) !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 22px rgba(244, 162, 157, 0.28);
+  }
+
+  .hover\:bg-amber-600:hover,
+  .hover\:bg-amber-700:hover {
+    background: linear-gradient(135deg, #ec9b39, #ec918c) !important;
+  }
+
+  .bg-blue-50 {
+    background: rgba(238, 247, 242, 0.88) !important;
+    border-color: rgba(154, 184, 163, 0.35) !important;
+    box-shadow: var(--shadow-card);
+  }
+
+  .text-blue-800,
+  .text-blue-900 {
+    color: #375846 !important;
+  }
+
+  .bg-slate-50 {
+    background: rgba(255, 255, 255, 0.62) !important;
+    border-color: rgba(216, 221, 227, 0.72) !important;
+    box-shadow: var(--shadow-card);
+  }
+
+  .bg-indigo-50 {
+    background: rgba(238, 247, 242, 0.76) !important;
+    border-color: rgba(127, 159, 141, 0.28) !important;
+    box-shadow: var(--shadow-card);
+  }
+
+  .text-indigo-800,
+  .text-indigo-700,
+  .text-indigo-600,
+  .text-indigo-500 {
+    color: #4f735f !important;
+  }
+
+  .border-indigo-200,
+  .border-indigo-100 {
+    border-color: rgba(127, 159, 141, 0.28) !important;
+  }
+
+  .bg-indigo-50\/40 {
+    background: rgba(238, 247, 242, 0.50) !important;
+  }
+
+  .bg-amber-50 {
+    background: rgba(255, 248, 223, 0.84) !important;
+    border-color: rgba(248, 211, 188, 0.9) !important;
+    box-shadow: var(--shadow-card);
+  }
+
+  .text-amber-800,
+  .text-amber-900 {
+    color: #7a4a22 !important;
+  }
+
+  .bg-emerald-50 {
+    background: rgba(238, 247, 242, 0.82) !important;
+    border-color: rgba(154, 184, 163, 0.40) !important;
+    box-shadow: var(--shadow-card);
+  }
+
+  .bg-emerald-600 {
+    background: linear-gradient(135deg, var(--sage-deep), var(--sage)) !important;
+    color: #ffffff !important;
+  }
+
+  .rounded-2xl {
+    border-radius: 26px !important;
+  }
+
+  .rounded-xl {
+    border-radius: 18px !important;
+  }
+
+  .shadow-xl {
+    box-shadow: var(--shadow-soft) !important;
+  }
+
+  .border {
+    border-color: var(--line) !important;
+  }
+
+  .sample-report-row,
+  #finalReportBox,
+  #finalReportInput {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  #copyFinalReportBtn {
+    background: linear-gradient(135deg, #f2c86b, #f4a29d) !important;
+    color: #3b2a1f !important;
+    box-shadow: 0 14px 26px rgba(244, 162, 157, 0.28);
+  }
+
+  #copyFinalReportBtn:hover {
+    background: linear-gradient(135deg, #edbd57, #ef928c) !important;
+  }
+
+  @media (max-width: 768px) {
+    main {
+      padding: 14px !important;
     }
-  </style>
+
+    main > section {
+      padding: 22px !important;
+      border-radius: 24px !important;
+    }
+
+    h1 {
+      font-size: 2rem !important;
+    }
+  }
+</style>
 </head>
 
 <body class="bg-slate-100 text-slate-900">
