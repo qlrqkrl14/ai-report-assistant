@@ -151,22 +151,32 @@
             ></textarea>
           </div>
 
-          <div>
-            <div class="flex items-center justify-between mb-2">
-              <label class="block font-semibold">7. 과거 보고서 참고 내용</label>
-              <span class="text-xs text-slate-500">최대 3개</span>
-            </div>
+<div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-5">
+  <div class="flex items-center justify-between mb-3">
+    <div>
+      <label class="block font-bold text-indigo-800">
+        7. 과거 보고서 참고 내용
+      </label>
+      <p class="text-xs text-indigo-600 mt-1">
+        AI가 참고할 보고서의 목차, 문체, 문단 흐름, 결론 도출 방식을 붙여넣으세요.
+      </p>
+    </div>
 
-            <div id="sampleReportsContainer" class="space-y-3"></div>
+    <span class="text-xs text-indigo-500">
+      최대 3개
+    </span>
+  </div>
 
-            <button
-              id="addSampleReportBtn"
-              type="button"
-              class="mt-2 text-sm font-semibold text-blue-600 hover:text-blue-800 disabled:text-slate-300 disabled:cursor-not-allowed"
-            >
-              + 참고 보고서 추가
-            </button>
-          </div>
+  <div id="sampleReportsContainer" class="space-y-3"></div>
+
+  <button
+    id="addSampleReportBtn"
+    type="button"
+    class="mt-3 text-sm font-semibold text-indigo-700 hover:text-indigo-900 disabled:text-slate-300 disabled:cursor-not-allowed"
+  >
+    + 참고 보고서 추가
+  </button>
+</div>
 
           <!-- AI 실행 단계 -->
           <div class="bg-blue-50 border border-blue-100 rounded-2xl p-5 space-y-3 mt-6">
@@ -413,32 +423,32 @@
       return wrapper;
     }
 
-    function createSampleReportInput(index) {
-      const wrapper = document.createElement("div");
-      wrapper.className = "sample-report-row space-y-2";
+function createSampleReportInput(index) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "sample-report-row bg-white border border-indigo-200 rounded-xl p-4 space-y-2";
 
-      wrapper.innerHTML = `
-        <div class="flex items-center justify-between">
-          <p class="sample-report-title text-sm font-semibold text-slate-600">
-            참고 보고서 ${index}
-          </p>
+  wrapper.innerHTML = `
+    <div class="flex items-center justify-between">
+      <p class="sample-report-title text-sm font-bold text-indigo-700">
+        참고 보고서 ${index}
+      </p>
 
-          <button
-            type="button"
-            class="remove-sample-report-btn px-3 py-1 rounded-lg border text-sm font-semibold text-red-600 hover:bg-red-50"
-          >
-            삭제
-          </button>
-        </div>
+      <button
+        type="button"
+        class="remove-sample-report-btn px-3 py-1 rounded-lg border border-red-200 text-sm font-semibold text-red-600 hover:bg-red-50"
+      >
+        삭제
+      </button>
+    </div>
 
-        <textarea
-          class="sample-report-input w-full h-40 border rounded-xl p-3"
-          placeholder="참고 보고서 ${index} 내용을 입력하세요. 목차, 문체, 문단 흐름, 수치 제시 방식, 사례 정리 방식, 결론 도출 방식이 드러나도록 붙여넣으면 좋습니다."
-        ></textarea>
-      `;
+    <textarea
+      class="sample-report-input w-full h-40 border border-indigo-100 bg-indigo-50/40 rounded-xl p-3 text-sm leading-relaxed focus:outline-none focus:ring-2 focus:ring-indigo-300"
+      placeholder="참고 보고서 ${index} 내용을 입력하세요. 목차, 문체, 문단 흐름, 수치 제시 방식, 사례 정리 방식, 결론 도출 방식이 드러나도록 붙여넣으면 좋습니다."
+    ></textarea>
+  `;
 
-      return wrapper;
-    }
+  return wrapper;
+}
 
     function addSourceLinkInput() {
       const currentCount = sourceLinksContainer.querySelectorAll(".source-link-row").length;
