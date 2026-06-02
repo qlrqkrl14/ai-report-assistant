@@ -4,8 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>모두의 보고서</title>
-
+  <title>모두의 부동산 보고서</title>
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/nanumsquareneo@0.0.5/nanumsquareneo.css"
@@ -41,15 +40,35 @@
     box-sizing: border-box;
   }
 
-  body {
-    font-family: "NanumSquareNeo", "NanumSquare Neo", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    font-weight: 400;
-    color: var(--ink);
-    background:
-      radial-gradient(circle at 10% 0%, rgba(220, 236, 228, 0.95) 0%, transparent 34%),
-      radial-gradient(circle at 90% 8%, rgba(248, 211, 188, 0.85) 0%, transparent 30%),
-      linear-gradient(135deg, #fbfbf7 0%, var(--mint-bg) 46%, #f7f3ef 100%) !important;
-  }
+body {
+  font-family: "NanumSquareNeo", "NanumSquare Neo", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-weight: 400;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(37, 183, 229, 0.18) 0%, transparent 32%),
+    radial-gradient(circle at 100% 8%, rgba(31, 138, 134, 0.18) 0%, transparent 34%),
+    linear-gradient(135deg, #f8fbfc 0%, #eef8f9 48%, #ffffff 100%) !important;
+}
+
+.site-kicker {
+  color: var(--reb-blue);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-logo-wrap {
+  min-width: 220px;
+}
+
+.site-logo {
+  width: 260px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
 
   main {
     padding-top: 28px !important;
@@ -294,21 +313,31 @@
   <main class="min-h-screen p-6">
     <section class="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl p-8">
 
-      <div class="mb-8">
-        <p class="text-sm font-normal text-blue-600 mb-2 tracking-wide">
-          Prompt Conversion
-        </p>
+<header class="mb-8 flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+  <div class="max-w-3xl">
+    <p class="site-kicker mb-2">
+      Prompt Conversion
+    </p>
 
-        <h1 class="text-3xl md:text-4xl font-bold mb-4">
-          모두의 보고서
-        </h1>
+    <h1 class="text-3xl md:text-4xl font-bold mb-4">
+      모두의 부동산 보고서
+    </h1>
 
-        <p class="text-slate-600 leading-relaxed">
-          과거 우수 보고서의 형식, 문체, 논리 구조를 AI가 분석하고,
-          사용자가 입력한 지역·자료·이슈·수치·사례를 그 형식에 맞게 재구성할 수 있도록
-          최적화된 AI 변환 프롬프트를 생성합니다.
-        </p>
-      </div>
+    <p class="text-slate-600 leading-relaxed">
+      과거 우수 보고서의 형식, 문체, 논리 구조를 AI가 분석하고,
+      사용자가 입력한 지역·자료·이슈·수치·사례를 그 형식에 맞게 재구성할 수 있도록
+      최적화된 AI 변환 프롬프트를 생성합니다.
+    </p>
+  </div>
+
+  <div class="site-logo-wrap flex md:justify-end">
+    <img
+      src="./assets/reb-logo.png"
+      alt="Korea Real Estate Board"
+      class="site-logo"
+    />
+  </div>
+</header>
 
       <div class="grid lg:grid-cols-2 gap-6">
 
